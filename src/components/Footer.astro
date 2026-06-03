@@ -1,0 +1,59 @@
+---
+import Container from './ui/Container.astro';
+import { site, nav, contacts } from '../data/content';
+---
+
+<footer class="bg-ink text-white">
+  <Container>
+    <div class="grid gap-10 py-14 md:grid-cols-3">
+      <div>
+        <img
+          src="/assets/brand/synthesislab-logo.svg"
+          alt="СинтезЛаб"
+          width="279"
+          height="169"
+          class="h-12 w-auto rounded bg-white p-1"
+          loading="lazy"
+        />
+        <p class="mt-4 text-sm text-periwinkle">{site.tagline}</p>
+      </div>
+
+      <div>
+        <p class="font-semibold">Навигация</p>
+        <ul class="mt-3 space-y-2 text-sm text-periwinkle">
+          {nav.map((n: { label: string; href: string }) => (
+            <li><a href={n.href} class="hover:text-white">{n.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-semibold">Контакты</p>
+        <ul class="mt-3 space-y-2 text-sm text-periwinkle">
+          <li>
+            <a href={contacts.telegramKatya.url} class="inline-flex items-center gap-2 hover:text-white">
+              <img src="/assets/social/telegram-square.svg" alt="" class="h-6 w-6" />
+              <span>{contacts.telegramKatya.handle} — {contacts.telegramKatya.who}</span>
+            </a>
+          </li>
+          <li>
+            <a href={contacts.telegramTanya.url} class="inline-flex items-center gap-2 hover:text-white">
+              <img src="/assets/social/telegram-square.svg" alt="" class="h-6 w-6" />
+              <span>{contacts.telegramTanya.handle} — {contacts.telegramTanya.who}</span>
+            </a>
+          </li>
+          <li>
+            <a href={contacts.phone.href} class="hover:text-white">
+              {contacts.phone.label}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2 border-t border-white/15 py-6 text-sm text-periwinkle sm:flex-row sm:justify-between">
+      <span>© 2026 СинтезЛаб</span>
+      <a href="/privacy" class="hover:text-white">Политика конфиденциальности</a>
+    </div>
+  </Container>
+</footer>

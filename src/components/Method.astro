@@ -1,0 +1,18 @@
+---
+import Section from './ui/Section.astro';
+import { method } from '../data/content';
+---
+
+<Section eyebrow="Метод" title="Как строится работа">
+  <div class="grid gap-8 md:grid-cols-5">
+    {method.map((s) => (
+      <div>
+        <span class="flex h-10 w-10 items-center justify-center rounded-full bg-ink font-bold text-white">
+          {s.n}
+        </span>
+        <h3 class="mt-4 font-bold text-ink">{s.title}</h3>
+        <p class="mt-2 text-sm text-muted">{s.text}</p>
+      </div>
+    ))}
+  </div>
+</Section>
