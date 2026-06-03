@@ -32,11 +32,13 @@ import Container from '../components/ui/Container.astro';
 
     <section class="bg-white py-20 md:py-28">
       <Container>
-        <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">Услуги подробно</p>
         <h2 class="max-w-3xl text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
           Что входит в каждый формат
         </h2>
-        <div class="mt-8">
+        <p class="mt-4 max-w-2xl text-lg text-muted">
+          Запрос, задачи и стоимость по каждому направлению. Точную смету формируем после бесплатной диагностики.
+        </p>
+        <div class="mt-10 space-y-6">
           {services.map((s) => <ServiceDetail service={s} />)}
         </div>
       </Container>

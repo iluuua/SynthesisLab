@@ -20,3 +20,29 @@
   html { scroll-behavior: smooth; }
   body { @apply bg-surface text-ink antialiased; }
 }
+
+@layer components {
+  /* Liquid / frosted glass — точечно: только плавающая капсула навигации */
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.66);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    backdrop-filter: saturate(180%) blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow:
+      0 10px 30px -14px rgba(61, 83, 119, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+  /* Читаемый fallback там, где backdrop-filter не поддерживается */
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .glass-nav { background: rgba(255, 255, 255, 0.95); }
+  }
+  /* Иконки фирменного «Наш подход» — перекрашиваем line-art в бренд-цвет через mask */
+  .brand-ic {
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+}

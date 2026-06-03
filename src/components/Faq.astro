@@ -3,15 +3,15 @@ import Section from "./ui/Section.astro";
 import { faq } from "../data/content";
 ---
 
-<Section id="faq" eyebrow="FAQ" title="Вопросы и ответы">
-  <div class="mx-auto max-w-3xl divide-y divide-line">
+<Section id="faq" title="Вопросы и ответы" center>
+  <div class="mx-auto max-w-3xl divide-y divide-line overflow-hidden rounded-2xl border border-line bg-white text-left shadow-sm">
     {faq.map((f) => (
-      <details class="group py-5">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-ink">
+      <details class="group open:bg-surface/50">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-semibold text-ink transition group-hover:text-accent">
           <span>{f.q}</span>
           <span class="text-2xl leading-none text-accent motion-safe:transition group-open:rotate-45">+</span>
         </summary>
-        <p class="mt-3 text-muted">{f.a}</p>
+        <p class="px-6 pb-5 leading-7 text-muted">{f.a}</p>
       </details>
     ))}
   </div>

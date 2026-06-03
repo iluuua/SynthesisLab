@@ -3,24 +3,34 @@ import Button from './ui/Button.astro';
 
 interface Props {
   service: any;
+  index?: number;
 }
 
-const { service } = Astro.props;
+const { service, index = 0 } = Astro.props;
+const num = String(index + 1).padStart(2, '0');
 ---
 
-<div class="flex min-h-[280px] flex-col rounded-2xl border border-line bg-white p-7 transition hover:-translate-y-0.5 hover:shadow-md">
-  <p class="text-xs font-semibold uppercase tracking-widest text-accent">Формат</p>
-  <h3 class="mt-3 text-xl font-bold text-ink">{service.title}</h3>
-  <p class="text-muted">{service.blurb}</p>
-  <div class="mt-auto flex flex-wrap items-center gap-4 pt-2">
+<article class="group relative flex min-h-[230px] flex-col overflow-hidden rounded-2xl border border-line bg-white p-7 transition duration-200 hover:-translate-y-1 hover:border-accent/30 hover:shadow-lg">
+  <span
+    aria-hidden="true"
+    class="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100"
+  ></span>
+  <div class="flex items-center gap-3">
+    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-sm font-extrabold tabular-nums text-accent">
+      {num}
+    </span>
+    <h3 class="text-xl font-bold text-ink">{service.title}</h3>
+  </div>
+  <p class="mt-3 leading-7 text-muted">{service.blurb}</p>
+  <div class="mt-auto flex flex-wrap items-center gap-4 pt-6">
     <Button variant="primary" href="#lead" class="!px-4 !py-2 text-sm">
       Получить диагностику
     </Button>
     <a
       href={'#' + service.anchor}
-      class="text-sm font-semibold text-accent hover:underline"
+      class="text-sm font-semibold text-accent transition hover:underline"
     >
       Подробнее →
     </a>
   </div>
-</div>
+</article>

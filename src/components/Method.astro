@@ -3,16 +3,20 @@ import Section from './ui/Section.astro';
 import { method } from '../data/content';
 ---
 
-<Section eyebrow="Метод" title="Как строится работа">
-  <div class="grid gap-8 md:grid-cols-5">
+<Section title="Как строится работа" subtitle="Пять шагов — от первого разговора до закреплённого результата.">
+  <ol class="relative grid gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-5">
+    <div
+      aria-hidden="true"
+      class="absolute left-5 right-5 top-6 hidden h-0.5 bg-line md:block"
+    ></div>
     {method.map((s) => (
-      <div>
-        <span class="flex h-10 w-10 items-center justify-center rounded-full bg-ink font-bold text-white">
+      <li class="relative">
+        <span class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-ink text-lg font-bold text-white ring-4 ring-white">
           {s.n}
         </span>
         <h3 class="mt-4 font-bold text-ink">{s.title}</h3>
-        <p class="mt-2 text-sm text-muted">{s.text}</p>
-      </div>
+        <p class="mt-2 text-sm leading-6 text-muted">{s.text}</p>
+      </li>
     ))}
-  </div>
+  </ol>
 </Section>

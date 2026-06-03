@@ -3,14 +3,14 @@ import Section from './ui/Section.astro';
 import { clients, metrics } from '../data/content';
 ---
 
-<Section eyebrow="Клиенты" title="Нам доверяют">
+<Section title="Нам доверяют">
   <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
     {clients.map((client) => (
       <div class="flex h-24 items-center justify-center rounded-2xl border border-line bg-white px-5">
         <img
           src={client.logo}
           alt={client.name}
-          class="max-h-14 w-full object-contain"
+          class="max-h-12 w-full object-contain opacity-80 transition hover:opacity-100"
           loading="lazy"
           decoding="async"
         />

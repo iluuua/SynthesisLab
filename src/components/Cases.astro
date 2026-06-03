@@ -4,8 +4,13 @@ import CaseCard from './CaseCard.astro';
 import { cases } from '../data/cases';
 ---
 
-<Section id="keysy" tone="surface" eyebrow="Опыт" title="Кейсы">
-  <div class="grid gap-6 md:grid-cols-2">
+<Section
+  id="keysy"
+  tone="surface"
+  title="Кейсы"
+  subtitle="Реальные проекты: запрос, что делали и какой получили результат. Часть клиентов называем только по согласованию."
+>
+  <div class="grid items-start gap-6 md:grid-cols-2">
     {cases.map((c) => (
       <CaseCard item={c} />
     ))}

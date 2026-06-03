@@ -7,9 +7,10 @@ interface Props {
   title?: string;
   subtitle?: string;
   tone?: 'white' | 'surface' | 'ink';
+  center?: boolean;
 }
 
-const { id, eyebrow, title, subtitle, tone = 'white' } = Astro.props;
+const { id, eyebrow, title, subtitle, tone = 'white', center = false } = Astro.props;
 
 const bgClass =
   tone === 'ink'
@@ -24,25 +25,30 @@ const hasHeading = !!(eyebrow || title || subtitle);
 
 <section id={id} class:list={['py-20 md:py-28', bgClass]}>
   <Container>
-    {eyebrow && (
-      <p class="text-sm font-semibold uppercase tracking-widest text-accent mb-3">
-        {eyebrow}
-      </p>
-    )}
-    {title && (
-      <h2
-        class:list={[
-          'text-3xl md:text-4xl font-extrabold tracking-tight max-w-3xl',
-          headingColor,
-        ]}
-      >
-        {title}
-      </h2>
-    )}
-    {subtitle && (
-      <p class:list={['mt-4 text-lg max-w-2xl', subColor]}>
-        {subtitle}
-      </p>
+    {hasHeading && (
+      <div class:list={[center && 'mx-auto max-w-3xl text-center']}>
+        {eyebrow && (
+          <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
+            {eyebrow}
+          </p>
+        )}
+        {title && (
+          <h2
+            class:list={[
+              'text-3xl font-extrabold tracking-tight md:text-4xl',
+              center ? 'mx-auto max-w-3xl' : 'max-w-3xl',
+              headingColor,
+            ]}
+          >
+            {title}
+          </h2>
+        )}
+        {subtitle && (
+          <p class:list={['mt-4 text-lg', center ? 'mx-auto max-w-2xl' : 'max-w-2xl', subColor]}>
+            {subtitle}
+          </p>
+        )}
+      </div>
     )}
     <div class={hasHeading ? 'mt-12' : undefined}>
       <slot />

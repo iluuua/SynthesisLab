@@ -4,10 +4,10 @@ import FormatCard from './FormatCard.astro';
 import { services } from '../data/services';
 ---
 
-<Section id="formaty" eyebrow="Услуги" title="Основные форматы работы">
+<Section id="formaty" title="Основные форматы работы" subtitle="Четыре формата под разные задачи бизнеса и команды. Точку входа подбираем на бесплатной диагностике.">
   <div class="grid gap-6 md:grid-cols-2">
-    {services.map((s) => (
-      <FormatCard service={s} />
+    {services.map((s, i) => (
+      <FormatCard service={s} index={i} />
     ))}
   </div>
 </Section>
