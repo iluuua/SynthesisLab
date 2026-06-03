@@ -1,18 +1,25 @@
-# build / deps
-node_modules/
-dist/
-.astro/
-test-results/
 
-# env / secrets
+# local/raw client materials
+materials_raw/
+
+# build/runtime
+dist/
+node_modules/
+.astro/
+
+# test/browser artifacts
+test-results/
+playwright-report/
+
+# local research/audit artifacts
+research/
+
+# local garbage
+*.tmp
+*.log
+.DS_Store
+
+# local secrets
 .env
 .env.*
 !.env.example
-
-# local raw client source materials; processed web assets live in src/ and public/
-materials_raw/
-
-# os / editor
-.DS_Store
-*.log
-.gstack/
