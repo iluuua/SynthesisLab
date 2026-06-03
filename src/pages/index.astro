@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Reinforce from '../components/Reinforce.astro';
+import Formats from '../components/Formats.astro';
+import DiagnosticCTA from '../components/DiagnosticCTA.astro';
+import ServiceDetail from '../components/ServiceDetail.astro';
+import Method from '../components/Method.astro';
+import Cases from '../components/Cases.astro';
+import Clients from '../components/Clients.astro';
+import Reviews from '../components/Reviews.astro';
+import Approach from '../components/Approach.astro';
+import Team from '../components/Team.astro';
+import Faq from '../components/Faq.astro';
+import LeadForm from '../components/LeadForm.astro';
+import Footer from '../components/Footer.astro';
+import { services } from '../data/services';
+import Container from '../components/ui/Container.astro';
+---
+
+<Base
+  title="СинтезЛаб — системное развитие бизнеса"
+  description="Командные и стратегические сессии, корпоративная медиация и коучинг лидеров. Бесплатная диагностика командной системы за 50 минут."
+>
+  <Header />
+  <main>
+    <Hero />
+    <Reinforce />
+    <Formats />
+    <DiagnosticCTA />
+
+    <section class="bg-white py-20 md:py-28">
+      <Container>
+        <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">Услуги подробно</p>
+        <h2 class="max-w-3xl text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
+          Что входит в каждый формат
+        </h2>
+        <div class="mt-8">
+          {services.map((s) => <ServiceDetail service={s} />)}
+        </div>
+      </Container>
+    </section>
+
+    <Method />
+    <Cases />
+    <Clients />
+    <Reviews />
+    <Approach />
+    <Team />
+    <Faq />
+    <LeadForm />
+  </main>
+  <Footer />
+</Base>

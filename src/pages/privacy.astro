@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Container from '../components/ui/Container.astro';
+---
+
+<Base title="Политика конфиденциальности — СинтезЛаб" description="Политика конфиденциальности СинтезЛаб.">
+  <Header />
+  <main class="bg-white py-16 md:py-24">
+    <Container>
+      <div class="mx-auto max-w-3xl">
+        <a href="/" class="text-sm font-semibold text-accent hover:underline">← На главную</a>
+        <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
+          Политика конфиденциальности
+        </h1>
+        <div class="mt-8 space-y-5 text-muted leading-relaxed">
+          <p>
+            Настоящая политика описывает, как СинтезЛаб обрабатывает персональные данные,
+            которые вы оставляете через форму на сайте.
+          </p>
+          <h2 class="text-xl font-bold text-ink">Какие данные мы собираем</h2>
+          <p>
+            Имя, название компании, роль, контакт (телефон или Telegram) и текст вашего запроса —
+            только то, что вы указываете в форме заявки на диагностику.
+          </p>
+          <h2 class="text-xl font-bold text-ink">Как мы используем данные</h2>
+          <p>
+            Исключительно чтобы связаться с вами, согласовать диагностику и ответить на запрос.
+            Мы не передаём данные третьим лицам и не используем их для рассылок без вашего согласия.
+          </p>
+          <h2 class="text-xl font-bold text-ink">Хранение и удаление</h2>
+          <p>
+            Данные хранятся столько, сколько необходимо для обработки вашего обращения.
+            Вы можете запросить их удаление, написав нам в Telegram.
+          </p>
+          <p class="text-sm">
+            Точная редакция политики уточняется. По вопросам обработки данных свяжитесь с нами
+            в Telegram.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </main>
+  <Footer />
+</Base>

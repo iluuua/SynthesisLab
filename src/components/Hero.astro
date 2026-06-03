@@ -1,0 +1,70 @@
+---
+import Container from './ui/Container.astro';
+import Button from './ui/Button.astro';
+import { Image } from 'astro:assets';
+import { site, contacts, hero, metrics, diagnostic } from '../data/content';
+import { foundersPhoto } from '../data/team';
+---
+
+<section class="relative overflow-hidden bg-white">
+  <Container>
+    <div class="relative grid min-h-[690px] items-center gap-12 py-14 md:grid-cols-[1.02fr_0.98fr] md:py-16 lg:min-h-[720px]">
+      <div>
+        <p class="max-w-xl text-sm font-semibold uppercase tracking-widest text-accent">
+          {hero.note}
+        </p>
+        <h1
+          class="mt-5 max-w-4xl text-4xl font-extrabold leading-[1.08] text-ink md:text-5xl lg:text-6xl"
+        >
+          {hero.h1}
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-muted md:text-xl">
+          {hero.sub}
+        </p>
+        <div class="mt-9 flex flex-wrap gap-4">
+          <Button variant="primary" href="#lead">
+            {site.ctaLabel}
+          </Button>
+          <a
+            href={contacts.telegramKatya.url}
+            class="inline-flex items-center justify-center gap-2 rounded-xl border border-ink/20 bg-white px-5 py-3 font-semibold text-ink transition hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/40"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="/assets/social/telegram-square.svg" alt="" class="h-7 w-7" />
+            Telegram
+          </a>
+        </div>
+        <dl class="mt-10 grid max-w-xl grid-cols-2 gap-4 sm:grid-cols-4">
+          {metrics.map((m) => (
+            <div class="border-t border-line pt-3">
+              <dt class="text-2xl font-extrabold text-ink">{m.value}</dt>
+              <dd class="mt-1 text-xs leading-4 text-muted">{m.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div class="relative">
+        <div class="absolute -right-5 bottom-20 h-20 w-20 border-l-2 border-t-2 border-accent/70" aria-hidden="true"></div>
+        <div class="relative overflow-hidden rounded-2xl bg-surface shadow-sm">
+          <Image
+            src={foundersPhoto}
+            alt="Татьяна Петрова и Екатерина Деревяшкина, соосновательницы СинтезЛаб"
+            width={720}
+            height={860}
+            class="aspect-[4/5] w-full object-cover object-[50%_22%]"
+            loading="eager"
+            densities={[1.5, 2]}
+          />
+        </div>
+        <div class="absolute -bottom-6 left-6 right-6 rounded-2xl border border-line bg-white p-5 shadow-lg md:left-auto md:right-8 md:max-w-sm">
+          <p class="text-sm font-semibold text-accent">{diagnostic.heading}</p>
+          <p class="mt-2 text-lg font-bold leading-6 text-ink">
+            За {diagnostic.duration} — фокусы, потери эффективности и следующий шаг.
+          </p>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

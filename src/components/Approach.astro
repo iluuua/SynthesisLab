@@ -1,0 +1,16 @@
+---
+import Section from "./ui/Section.astro";
+import Icon from "./ui/Icon.astro";
+import { approach } from "../data/content";
+---
+
+<Section tone="surface" eyebrow="Принципы" title="Наш подход" subtitle={approach.lead}>
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    {approach.values.map((v) => (
+      <div class="flex flex-col gap-3">
+        <Icon name={v.icon} class="h-9 w-9 text-ink" />
+        <p class="font-semibold text-ink">{v.text}</p>
+      </div>
+    ))}
+  </div>
+</Section>

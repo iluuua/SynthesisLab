@@ -1,0 +1,26 @@
+---
+import Section from './ui/Section.astro';
+---
+
+<Section
+  id="otzyvy"
+  eyebrow="Отзывы"
+  title="Отзывы клиентов"
+  subtitle="Публичные формулировки отзывов добавим только после согласования с клиентами."
+>
+  <div class="rounded-2xl border border-line bg-white p-8">
+    <div class="grid gap-8 md:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-widest text-accent">
+          Точная формулировка
+        </p>
+        <h3 class="mt-3 text-2xl font-extrabold text-ink">
+          Сейчас доверие подтверждают кейсы, логотипы и открытые факты.
+        </h3>
+      </div>
+      <p class="text-muted">
+        После согласования отзывов этот блок станет подборкой с ролью, компанией и текстом клиента. До этого мы оставляем пространство под реальные формулировки.
+      </p>
+    </div>
+  </div>
+</Section>

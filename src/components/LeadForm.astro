@@ -1,0 +1,95 @@
+---
+import Section from './ui/Section.astro';
+import Button from './ui/Button.astro';
+---
+
+<Section id="lead" tone="surface" title="Получить бесплатную диагностику" subtitle="Оставьте контакты — свяжемся и согласуем удобное время.">
+  <form id="lead-form" class="mx-auto grid max-w-xl gap-4">
+    <label class="grid gap-1.5 text-sm font-medium text-ink">
+      Имя
+      <input
+        type="text"
+        name="name"
+        required
+        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+      />
+    </label>
+
+    <label class="grid gap-1.5 text-sm font-medium text-ink">
+      Компания
+      <input
+        type="text"
+        name="company"
+        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+      />
+    </label>
+
+    <label class="grid gap-1.5 text-sm font-medium text-ink">
+      Роль
+      <select
+        name="role"
+        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+      >
+        <option value="">Выберите…</option>
+        <option value="Собственник">Собственник</option>
+        <option value="HR">HR</option>
+        <option value="Руководитель">Руководитель</option>
+        <option value="Другое">Другое</option>
+      </select>
+    </label>
+
+    <label class="grid gap-1.5 text-sm font-medium text-ink">
+      Телефон или Telegram
+      <input
+        type="text"
+        name="contact"
+        required
+        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+      />
+    </label>
+
+    <label class="grid gap-1.5 text-sm font-medium text-ink">
+      Коротко о запросе
+      <textarea
+        name="message"
+        rows="4"
+        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+      ></textarea>
+    </label>
+
+    <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+    <p class="text-xs text-muted">
+      Нажимая «Отправить», вы соглашаетесь с <a href="/privacy" class="underline">политикой конфиденциальности</a>.
+    </p>
+
+    <Button variant="primary" type="submit">Отправить</Button>
+
+    <p id="lead-ok" class="hidden font-medium text-green-700">Спасибо! Мы свяжемся с вами.</p>
+    <p id="lead-err" class="hidden font-medium text-red-600">Что-то пошло не так. Напишите нам в Telegram.</p>
+  </form>
+</Section>
+
+<script>
+  const f = document.getElementById('lead-form') as HTMLFormElement;
+  f.addEventListener('submit', async (e: Event) => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(f));
+    try {
+      const r = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(d),
+      });
+      const j = await r.json();
+      if (j.ok) {
+        document.getElementById('lead-ok')!.classList.remove('hidden');
+        f.reset();
+      } else {
+        document.getElementById('lead-err')!.classList.remove('hidden');
+      }
+    } catch {
+      document.getElementById('lead-err')!.classList.remove('hidden');
+    }
+  });
+</script>

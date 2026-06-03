@@ -1,0 +1,31 @@
+---
+import Section from './ui/Section.astro';
+import { clients, metrics } from '../data/content';
+---
+
+<Section eyebrow="Клиенты" title="Нам доверяют">
+  <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+    {clients.map((client) => (
+      <div class="flex h-24 items-center justify-center rounded-2xl border border-line bg-white px-5">
+        <img
+          src={client.logo}
+          alt={client.name}
+          class="max-h-14 w-full object-contain"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-12 grid gap-6 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-4">
+    {metrics.map((m) => (
+      <div>
+        <div class="text-3xl font-extrabold text-ink md:text-4xl">
+          {m.value}
+        </div>
+        <div class="mt-2 text-sm text-muted">{m.label}</div>
+      </div>
+    ))}
+  </div>
+</Section>

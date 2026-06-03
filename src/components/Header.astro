@@ -1,0 +1,98 @@
+---
+import Container from './ui/Container.astro';
+import Button from './ui/Button.astro';
+import Icon from './ui/Icon.astro';
+import { site, contacts, nav } from '../data/content';
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75"
+>
+  <Container>
+    <div class="flex h-[72px] items-center justify-between gap-5">
+      <a href="/" aria-label="На главную" class="shrink-0">
+        <img
+          src="/assets/brand/synthesislab-logo.svg"
+          alt="СинтезЛаб"
+          width="279"
+          height="169"
+          class="h-11 w-auto md:h-12"
+          loading="eager"
+          decoding="async"
+        />
+      </a>
+
+      <nav class="hidden items-center gap-7 lg:flex" aria-label="Основная навигация">
+        {nav.map((item) => (
+          <a
+            href={item.href}
+            class="text-sm font-medium text-ink transition hover:text-accent"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a
+          href={contacts.telegramKatya.url}
+          aria-label="Написать в Telegram"
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent shadow-sm transition hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/assets/social/telegram-square.svg" alt="" class="h-10 w-10" loading="eager" />
+        </a>
+
+        <Button
+          href="#lead"
+          variant="primary"
+          class="!px-4 !py-2 text-sm hidden md:inline-flex"
+        >
+          {site.ctaLabel}
+        </Button>
+
+        <button
+          id="m-btn"
+          class="text-ink md:hidden"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+        >
+          <Icon name="menu" />
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="m-menu"
+      class="hidden border-t border-line pb-4 pt-4 md:hidden"
+      role="navigation"
+      aria-label="Мобильная навигация"
+    >
+      <nav class="flex flex-col gap-4">
+        {nav.map((item) => (
+          <a
+            href={item.href}
+            class="text-sm font-medium text-ink transition hover:text-accent"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+      <div class="mt-4">
+        <Button href="#lead" variant="primary" class="w-full text-sm">
+          {site.ctaLabel}
+        </Button>
+      </div>
+    </div>
+  </Container>
+</header>
+
+<script>
+  const btn = document.getElementById('m-btn');
+  const menu = document.getElementById('m-menu');
+  btn?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(open));
+  });
+</script>
