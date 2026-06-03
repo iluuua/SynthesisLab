@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import { segments } from '../data/segments';
+---
+
+<Base
+  title="Услуги — СинтезЛаб"
+  description="Кому и чем помогаем: для компаний, команд, лидеров и HR. Командный коучинг, стратегические сессии, медиация, диагностика и развитие лидерства."
+>
+  <Header />
+  <main class="bg-surface">
+    <!-- Интро -->
+    <section class="bg-white pb-10 pt-14 md:pt-16">
+      <Container>
+        <a href="/" class="text-sm font-semibold text-accent hover:underline">← На главную</a>
+        <h1 class="mt-4 max-w-3xl text-3xl font-extrabold tracking-tight text-ink md:text-4xl lg:text-5xl">
+          Кому и чем мы помогаем
+        </h1>
+        <p class="mt-4 max-w-2xl text-lg text-muted">
+          Услуги собраны по тому, кто перед нами: компания, команда, лидер или HR. Выберите сегмент — покажем, с чем помогаем и какие форматы подойдут.
+        </p>
+      </Container>
+    </section>
+
+    <!-- Навигация по сегментам: на desktop — табы, на mobile — горизонтальные чипы -->
+    <div data-seg-sticky class="sticky top-[68px] z-30 border-y border-line bg-surface/90 backdrop-blur md:top-[76px]">
+      <Container>
+        <nav aria-label="Навигация по сегментам" class="-mx-1 flex gap-2 overflow-x-auto px-1 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {segments.map((s, i) => (
+            <a
+              href={`#${s.id}`}
+              data-seg-link={s.id}
+              aria-current={i === 0 ? 'true' : 'false'}
+              class="seg-chip whitespace-nowrap rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-ink transition duration-200 hover:border-accent/40 hover:text-accent"
+            >
+              {s.audience}
+            </a>
+          ))}
+        </nav>
+      </Container>
+    </div>
+
+    <!-- Сегменты -->
+    <div class="space-y-6 py-12 md:space-y-8 md:py-16">
+      {segments.map((s) => (
+        <Container>
+          <section id={s.id} data-seg-section class="scroll-mt-[150px] rounded-2xl border border-line bg-white p-7 md:p-10">
+            <div class="flex items-start gap-4 md:gap-5">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent md:h-14 md:w-14">
+                <Icon name={s.icon} class="h-6 w-6 md:h-7 md:w-7" />
+              </span>
+              <div>
+                <h2 class="text-2xl font-extrabold tracking-tight text-ink md:text-3xl">{s.audience}</h2>
+                <p class="mt-2 max-w-2xl leading-7 text-muted">{s.meaning}</p>
+              </div>
+            </div>
+
+            <ul class="mt-7 grid gap-3 sm:grid-cols-2">
+              {s.services.map((srv) => (
+                <li class="flex items-start gap-3 rounded-xl border border-line bg-surface px-4 py-3">
+                  <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                  <span class="text-sm leading-6 text-ink">{srv}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-6">
+              <Button variant="primary" href="/#lead" class="!px-4 !py-2 text-sm">Получить диагностику</Button>
+              <a href="/#formaty" class="text-sm font-semibold text-accent transition hover:underline">Основные форматы работы →</a>
+            </div>
+          </section>
+        </Container>
+      ))}
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .seg-chip[aria-current='true'] {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 8%, white);
+  }
+</style>
+
+<script>
+  // Подсветка активного чипа по позиции скролла. Один IntersectionObserver на 4 секции.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-seg-link]'));
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-seg-section]'));
+  if (links.length && sections.length) {
+    const byId = new Map(links.map((l) => [l.dataset.segLink, l]));
+    const setActive = (id: string | undefined) => {
+      links.forEach((l) => l.setAttribute('aria-current', String(l.dataset.segLink === id)));
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // берём самую верхнюю видимую секцию
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActive((visible[0].target as HTMLElement).id);
+      },
+      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+    );
+    sections.forEach((s) => observer.observe(s));
+
+    // мгновенная подсветка по клику
+    links.forEach((l) => l.addEventListener('click', () => setActive(l.dataset.segLink)));
+  }
+</script>

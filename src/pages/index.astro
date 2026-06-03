@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
+import Segments from '../components/Segments.astro';
 import Reinforce from '../components/Reinforce.astro';
 import Formats from '../components/Formats.astro';
 import DiagnosticCTA from '../components/DiagnosticCTA.astro';
@@ -25,12 +26,19 @@ import Container from '../components/ui/Container.astro';
 >
   <Header />
   <main>
+    <!-- 1. Hero (white) -->
     <Hero />
+    <!-- 2. Кому помогаем — ICP (surface) -->
+    <Segments />
+    <!-- 3. Как мы усиливаем бизнес (white) -->
     <Reinforce />
+    <!-- 4. Основные форматы работы (surface) -->
     <Formats />
+    <!-- 5. Бесплатная диагностика (ink — сильный смысловой разрыв) -->
     <DiagnosticCTA />
 
-    <section class="bg-white py-20 md:py-28">
+    <!-- 6. Что входит в каждый формат (white) -->
+    <section class="cv-auto bg-white py-20 md:py-28">
       <Container>
         <h2 class="max-w-3xl text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
           Что входит в каждый формат
@@ -44,13 +52,21 @@ import Container from '../components/ui/Container.astro';
       </Container>
     </section>
 
+    <!-- 7. Как строится работа — pipeline (surface) -->
     <Method />
+    <!-- 8. Кейсы — интерактив (white) -->
     <Cases />
+    <!-- 9. Нам доверяют (surface) -->
     <Clients />
+    <!-- 10. Отзывы и признания (white) -->
     <Reviews />
+    <!-- 11. Наш подход (surface) -->
     <Approach />
+    <!-- 12. Наша команда (white) -->
     <Team />
+    <!-- 13. FAQ (surface) -->
     <Faq />
+    <!-- 14. Финальный CTA / форма (white) -->
     <LeadForm />
   </main>
   <Footer />

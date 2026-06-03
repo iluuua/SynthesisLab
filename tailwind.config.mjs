@@ -12,7 +12,9 @@ export default {
         line: '#E4E8F0',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        // Брендовый шрифт деков — Avenir Next / Avenir (коммерческий, без веб-файлов).
+        // Mulish — ближайший свободный self-hosted substitute с кириллицей.
+        sans: ['Mulish', 'Avenir Next', 'Avenir', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
         content: '1120px',

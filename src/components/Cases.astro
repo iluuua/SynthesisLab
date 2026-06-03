@@ -1,18 +1,160 @@
 ---
 import Section from './ui/Section.astro';
-import CaseCard from './CaseCard.astro';
+import CaseDetail from './CaseDetail.astro';
+import Icon from './ui/Icon.astro';
 import { cases } from '../data/cases';
 ---
 
 <Section
   id="keysy"
-  tone="surface"
+  tone="white"
   title="Кейсы"
-  subtitle="Реальные проекты: запрос, что делали и какой получили результат. Часть клиентов называем только по согласованию."
+  subtitle="Реальные проекты: ситуация, запрос, что делали и какой получили результат. Выберите кейс, чтобы посмотреть детали."
 >
-  <div class="grid items-start gap-6 md:grid-cols-2">
-    {cases.map((c) => (
-      <CaseCard item={c} />
-    ))}
+  <div data-cases>
+    {/* ===== Desktop: список слева + панель справа ===== */}
+    <div class="hidden gap-6 lg:grid lg:grid-cols-[minmax(280px,360px)_1fr]">
+      <div role="tablist" aria-orientation="vertical" aria-label="Список кейсов" class="flex flex-col gap-2">
+        {cases.map((c, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`case-tab-${c.id}`}
+            aria-controls={`case-panel-${c.id}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            data-case-tab={c.id}
+            class="case-tab group rounded-2xl border border-line bg-white px-5 py-4 text-left transition duration-200 hover:border-accent/40"
+          >
+            <span class="block text-[11px] font-semibold uppercase tracking-widest text-accent">{c.tag}</span>
+            <span class="mt-1 block font-bold leading-snug text-ink">{c.title}</span>
+            {c.scale && <span class="mt-1 block text-xs text-muted">{c.scale}</span>}
+          </button>
+        ))}
+      </div>
+
+      <div class="relative grid rounded-2xl border border-line bg-white p-7 shadow-sm">
+        {cases.map((c, i) => (
+          <div
+            role="tabpanel"
+            id={`case-panel-${c.id}`}
+            aria-labelledby={`case-tab-${c.id}`}
+            data-case-panel={c.id}
+            class:list={['case-panel', i === 0 && 'is-active']}
+            hidden={i !== 0}
+          >
+            <CaseDetail item={c} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* ===== Mobile: аккордеон ===== */}
+    <div class="flex flex-col gap-3 lg:hidden">
+      {cases.map((c, i) => (
+        <div class="accordion-item overflow-hidden rounded-2xl border border-line bg-white" data-open={i === 0 ? 'true' : 'false'}>
+          <button
+            type="button"
+            data-case-acc={c.id}
+            aria-expanded={i === 0 ? 'true' : 'false'}
+            aria-controls={`case-acc-panel-${c.id}`}
+            class="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+          >
+            <span>
+              <span class="block text-[11px] font-semibold uppercase tracking-widest text-accent">{c.tag}</span>
+              <span class="mt-1 block font-bold leading-snug text-ink">{c.title}</span>
+            </span>
+            <Icon name="chevron" class="acc-chevron h-5 w-5 shrink-0 text-accent transition-transform duration-300" />
+          </button>
+          <div id={`case-acc-panel-${c.id}`} class="accordion-panel">
+            <div class="accordion-inner">
+              <div class="px-5 pb-5 pt-1">
+                <CaseDetail item={c} />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   </div>
 </Section>
+
+<style>
+  .case-panel {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 260ms ease, transform 260ms ease;
+  }
+  .case-panel.is-active {
+    opacity: 1;
+    transform: none;
+  }
+  .case-tab[aria-selected='true'] {
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 24px -16px rgba(61, 83, 119, 0.45);
+  }
+  .case-tab[aria-selected='true'] {
+    background: color-mix(in srgb, var(--color-accent) 6%, white);
+  }
+  .accordion-item[data-open='true'] .acc-chevron {
+    transform: rotate(180deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .case-panel { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-cases]').forEach((root) => {
+    // ----- Desktop tabs -----
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-case-tab]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-case-panel]'));
+
+    const selectTab = (id: string | null) => {
+      tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.caseTab === id)));
+      panels.forEach((p) => {
+        const active = p.dataset.casePanel === id;
+        if (active) {
+          p.hidden = false;
+          // следующий кадр — чтобы сработал transition
+          requestAnimationFrame(() => p.classList.add('is-active'));
+        } else {
+          p.classList.remove('is-active');
+          p.hidden = true;
+        }
+      });
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectTab(tab.dataset.caseTab ?? null));
+      // стрелки вверх/вниз для доступности
+      tab.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        e.preventDefault();
+        const next = e.key === 'ArrowDown' ? (i + 1) % tabs.length : (i - 1 + tabs.length) % tabs.length;
+        tabs[next].focus();
+        selectTab(tabs[next].dataset.caseTab ?? null);
+      });
+    });
+
+    // ----- Mobile accordion -----
+    const accBtns = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-case-acc]'));
+    accBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.accordion-item') as HTMLElement | null;
+        if (!item) return;
+        const open = item.dataset.open === 'true';
+        // закрываем остальные для аккуратности
+        accBtns.forEach((b) => {
+          const it = b.closest('.accordion-item') as HTMLElement | null;
+          if (it && it !== item) {
+            it.dataset.open = 'false';
+            b.setAttribute('aria-expanded', 'false');
+          }
+        });
+        item.dataset.open = open ? 'false' : 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+    });
+  });
+</script>

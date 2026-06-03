@@ -3,7 +3,7 @@ import Section from './ui/Section.astro';
 import Button from './ui/Button.astro';
 ---
 
-<Section id="lead" tone="surface" center title="Оставьте заявку" subtitle="Оставьте контакты — свяжемся и согласуем удобное время для бесплатной диагностики.">
+<Section id="lead" tone="white" center title="Получить диагностику" subtitle="Оставьте контакты — свяжемся и согласуем удобное время для бесплатной диагностики команды.">
   <form id="lead-form" class="mx-auto grid max-w-xl gap-4 text-left">
     <label class="grid gap-1.5 text-sm font-medium text-ink">
       Имя
@@ -11,7 +11,7 @@ import Button from './ui/Button.astro';
         type="text"
         name="name"
         required
-        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+        class="rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
       />
     </label>
 
@@ -20,7 +20,7 @@ import Button from './ui/Button.astro';
       <input
         type="text"
         name="company"
-        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+        class="rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
       />
     </label>
 
@@ -28,7 +28,7 @@ import Button from './ui/Button.astro';
       Роль
       <select
         name="role"
-        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+        class="rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
       >
         <option value="">Выберите…</option>
         <option value="Собственник">Собственник</option>
@@ -44,7 +44,7 @@ import Button from './ui/Button.astro';
         type="text"
         name="contact"
         required
-        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+        class="rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
       />
     </label>
 
@@ -53,14 +53,14 @@ import Button from './ui/Button.astro';
       <textarea
         name="message"
         rows="4"
-        class="rounded-xl border border-line bg-white px-4 py-3 outline-none focus:border-accent"
+        class="rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
       ></textarea>
     </label>
 
     <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
 
     <p class="text-xs text-muted">
-      Нажимая «Отправить», вы соглашаетесь с <a href="/privacy" class="underline">политикой конфиденциальности</a>.
+      Нажимая кнопку, вы соглашаетесь с <a href="/privacy" class="font-medium text-ink underline underline-offset-2 hover:text-accent">политикой обработки персональных данных</a>.
     </p>
 
     <Button variant="primary" type="submit">Отправить</Button>

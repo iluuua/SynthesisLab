@@ -7,11 +7,15 @@ export interface ServiceDetail {
   result?: string[]; // Результат (если есть)
 }
 
+// Сегменты ICP, которым адресован формат (см. src/data/segments.ts). Формат = ЧТО, сегмент = КОМУ.
+export type SegmentId = 'companies' | 'teams' | 'leaders' | 'hr';
+
 export interface Service {
   slug: string;
   anchor: string;    // id детальной секции на странице (позже → /services/[slug])
   title: string;
   blurb: string;     // короткое описание для карточки на главной
+  audience: SegmentId[]; // кому адресован формат — чипы «для кого» + ссылка на /services#id
   priceFrom?: string;
   detail: ServiceDetail;
 }
@@ -25,6 +29,7 @@ export const services: Service[] = [
     anchor: 'service-komandnye-sessii',
     title: 'Командные сессии',
     blurb: 'Синхронизируем команду в единую систему вопреки кризисам и тупикам.',
+    audience: ['teams', 'companies'],
     priceFrom: 'от 180 000 ₽',
     detail: {
       request:
@@ -42,6 +47,7 @@ export const services: Service[] = [
     anchor: 'service-strategicheskie-sessii',
     title: 'Стратегические сессии',
     blurb: 'Превращаем энергию хаоса в точный план действий.',
+    audience: ['companies', 'teams'],
     priceFrom: 'от 160 000 ₽',
     detail: {
       request: 'Сформировать стратегию команды на конкретный период.',
@@ -58,6 +64,7 @@ export const services: Service[] = [
     anchor: 'service-korporativnaya-mediatsiya',
     title: 'Корпоративная медиация',
     blurb: 'Переводим системное напряжение в ресурс для совместного движения к целям.',
+    audience: ['teams', 'leaders'],
     priceFrom: 'от 60 000 ₽',
     detail: {
       request:
@@ -76,6 +83,7 @@ export const services: Service[] = [
     anchor: 'service-individualnyy-kouching',
     title: 'Индивидуальный коучинг лидеров',
     blurb: 'Точка опоры для лидеров: ясность и устойчивость для точных решений в любые времена.',
+    audience: ['leaders'],
     priceFrom: 'от 15 000 ₽',
     detail: {
       request:

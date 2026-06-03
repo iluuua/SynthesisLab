@@ -1,18 +1,47 @@
 ---
-import Section from "./ui/Section.astro";
-import { faq } from "../data/content";
+import Section from './ui/Section.astro';
+import Icon from './ui/Icon.astro';
+import { faq } from '../data/content';
 ---
 
-<Section id="faq" title="Вопросы и ответы" center>
-  <div class="mx-auto max-w-3xl divide-y divide-line overflow-hidden rounded-2xl border border-line bg-white text-left shadow-sm">
-    {faq.map((f) => (
-      <details class="group open:bg-surface/50">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-semibold text-ink transition group-hover:text-accent">
-          <span>{f.q}</span>
-          <span class="text-2xl leading-none text-accent motion-safe:transition group-open:rotate-45">+</span>
-        </summary>
-        <p class="px-6 pb-5 leading-7 text-muted">{f.a}</p>
-      </details>
+<Section id="faq" tone="surface" title="Частые вопросы" center>
+  <div data-faq class="mx-auto max-w-3xl space-y-3 text-left">
+    {faq.map((f, i) => (
+      <div class="accordion-item overflow-hidden rounded-2xl border border-line bg-white transition-colors duration-200 hover:border-accent/40" data-open="false">
+        <h3>
+          <button
+            type="button"
+            id={`faq-q-${i}`}
+            data-faq-btn
+            aria-expanded="false"
+            aria-controls={`faq-a-${i}`}
+            class="flex w-full cursor-pointer items-center justify-between gap-4 px-6 py-5 text-left font-semibold text-ink transition-colors duration-200 hover:text-accent"
+          >
+            <span>{f.q}</span>
+            <Icon name="chevron" class="acc-chevron h-5 w-5 shrink-0 text-accent transition-transform duration-300" />
+          </button>
+        </h3>
+        <div id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`} class="accordion-panel">
+          <div class="accordion-inner">
+            <p class="px-6 pb-5 leading-7 text-muted">{f.a}</p>
+          </div>
+        </div>
+      </div>
     ))}
   </div>
 </Section>
+
+<script>
+  document.querySelectorAll('[data-faq]').forEach((root) => {
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-faq-btn]'));
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.accordion-item') as HTMLElement | null;
+        if (!item) return;
+        const open = item.dataset.open === 'true';
+        item.dataset.open = open ? 'false' : 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+      });
+    });
+  });
+</script>
