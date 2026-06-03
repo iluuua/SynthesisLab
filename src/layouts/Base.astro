@@ -72,9 +72,8 @@ const { title, description = 'Системное развитие бизнеса
           return;
         }
 
-        nodes.forEach((node, index) => {
+        nodes.forEach((node) => {
           node.classList.add('motion-reveal');
-          node.style.setProperty('--motion-delay', `${Math.min((index % 5) * 60, 240)}ms`);
           if (node.getBoundingClientRect().top < window.innerHeight * 0.92) {
             node.classList.add('is-visible');
           }
