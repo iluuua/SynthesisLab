@@ -56,6 +56,7 @@ import { site, contacts, nav } from '../data/content';
           id="m-btn"
           class="text-ink lg:hidden"
           aria-label="Открыть меню"
+          aria-controls="m-menu"
           aria-expanded="false"
         >
           <Icon name="menu" />
@@ -65,7 +66,7 @@ import { site, contacts, nav } from '../data/content';
 
     <div
       id="m-menu"
-      class="glass-nav mt-2 hidden rounded-2xl p-4 lg:hidden"
+      class="glass-nav mobile-menu-panel mt-2 rounded-2xl p-4 lg:hidden"
       role="navigation"
       aria-label="Мобильная навигация"
     >
@@ -87,12 +88,3 @@ import { site, contacts, nav } from '../data/content';
     </div>
   </Container>
 </header>
-
-<script>
-  const btn = document.getElementById('m-btn');
-  const menu = document.getElementById('m-menu');
-  btn?.addEventListener('click', () => {
-    const open = menu?.classList.toggle('hidden') === false;
-    btn.setAttribute('aria-expanded', String(open));
-  });
-</script>
