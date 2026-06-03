@@ -3,40 +3,102 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Container from '../components/ui/Container.astro';
+import { contacts } from '../data/content';
 ---
 
-<Base title="Политика конфиденциальности — СинтезЛаб" description="Политика конфиденциальности СинтезЛаб.">
+<Base title="Политика обработки персональных данных — СинтезЛаб" description="Как СинтезЛаб обрабатывает персональные данные, оставленные через форму на сайте.">
   <Header />
   <main class="bg-white py-16 md:py-24">
     <Container>
       <div class="mx-auto max-w-3xl">
         <a href="/" class="text-sm font-semibold text-accent hover:underline">← На главную</a>
         <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
-          Политика конфиденциальности
+          Политика обработки персональных данных
         </h1>
-        <div class="mt-8 space-y-5 text-muted leading-relaxed">
+        <p class="mt-3 text-sm text-muted">Действует для сайта СинтезЛаб.</p>
+
+        <div class="mt-8 space-y-8 leading-relaxed text-muted">
           <p>
-            Настоящая политика описывает, как СинтезЛаб обрабатывает персональные данные,
-            которые вы оставляете через форму на сайте.
+            Эта политика описывает, какие данные мы получаем через форму на сайте, зачем
+            их используем и как вы можете ими управлять. Оставляя заявку, вы соглашаетесь
+            с условиями ниже.
           </p>
-          <h2 class="text-xl font-bold text-ink">Какие данные мы собираем</h2>
-          <p>
-            Имя, название компании, роль, контакт (телефон или Telegram) и текст вашего запроса —
-            только то, что вы указываете в форме заявки на диагностику.
-          </p>
-          <h2 class="text-xl font-bold text-ink">Как мы используем данные</h2>
-          <p>
-            Исключительно чтобы связаться с вами, согласовать диагностику и ответить на запрос.
-            Мы не передаём данные третьим лицам и не используем их для рассылок без вашего согласия.
-          </p>
-          <h2 class="text-xl font-bold text-ink">Хранение и удаление</h2>
-          <p>
-            Данные хранятся столько, сколько необходимо для обработки вашего обращения.
-            Вы можете запросить их удаление, написав нам в Telegram.
-          </p>
+
+          <section>
+            <h2 class="text-xl font-bold text-ink">Какие данные мы собираем</h2>
+            <p class="mt-3">Только то, что вы сами указываете в форме заявки на диагностику:</p>
+            <ul class="mt-3 space-y-2">
+              <li class="flex gap-2"><span class="text-accent">•</span><span>имя;</span></li>
+              <li class="flex gap-2"><span class="text-accent">•</span><span>название компании;</span></li>
+              <li class="flex gap-2"><span class="text-accent">•</span><span>роль (собственник, HR, руководитель или другое);</span></li>
+              <li class="flex gap-2"><span class="text-accent">•</span><span>контакт для связи — телефон или Telegram;</span></li>
+              <li class="flex gap-2"><span class="text-accent">•</span><span>текст вашего запроса, если вы его оставили.</span></li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-ink">Зачем мы собираем данные</h2>
+            <p class="mt-3">
+              Чтобы связаться с вами, согласовать бесплатную диагностику и ответить на запрос.
+              Для других целей данные не используются.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-ink">Как мы используем данные</h2>
+            <p class="mt-3">
+              Заявка поступает напрямую команде СинтезЛаб. Мы не передаём ваши данные третьим
+              лицам и не используем их для рассылок без вашего отдельного согласия.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-ink">Cookies и аналитика</h2>
+            <p class="mt-3">
+              Сайт не использует cookies для отслеживания и не подключает внешние системы
+              веб-аналитики. Мы обрабатываем только данные, которые вы оставляете в форме.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-ink">Хранение, удаление и отзыв согласия</h2>
+            <p class="mt-3">
+              Данные хранятся столько, сколько нужно для обработки вашего обращения. Вы можете
+              в любой момент отозвать согласие и попросить удалить ваши данные — напишите нам
+              в Telegram, и мы это сделаем.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-ink">Контакты для вопросов</h2>
+            <p class="mt-3">По вопросам обработки данных свяжитесь с нами:</p>
+            <ul class="mt-3 space-y-2">
+              <li class="flex gap-2">
+                <span class="text-accent">•</span>
+                <a href={contacts.telegramKatya.url} target="_blank" rel="noopener noreferrer" class="font-medium text-ink underline underline-offset-2 hover:text-accent">
+                  Telegram {contacts.telegramKatya.handle}
+                </a>
+                <span>— {contacts.telegramKatya.who}</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="text-accent">•</span>
+                <a href={contacts.telegramTanya.url} target="_blank" rel="noopener noreferrer" class="font-medium text-ink underline underline-offset-2 hover:text-accent">
+                  Telegram {contacts.telegramTanya.handle}
+                </a>
+                <span>— {contacts.telegramTanya.who}</span>
+              </li>
+              {contacts.phone.label && (
+                <li class="flex gap-2">
+                  <span class="text-accent">•</span>
+                  <a href={contacts.phone.href} class="font-medium text-ink underline underline-offset-2 hover:text-accent">{contacts.phone.label}</a>
+                </li>
+              )}
+            </ul>
+          </section>
+
           <p class="text-sm">
-            Точная редакция политики уточняется. По вопросам обработки данных свяжитесь с нами
-            в Telegram.
+            Это краткая редакция политики для сайта-визитки. Финальную юридическую формулировку
+            клиент может уточнить отдельно.
           </p>
         </div>
       </div>

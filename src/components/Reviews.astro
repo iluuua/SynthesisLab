@@ -1,29 +1,55 @@
 ---
 import Section from './ui/Section.astro';
+import { recognition, testimonials } from '../data/content';
 ---
 
 <Section
   id="otzyvy"
-  title="Отзывы и признание"
-  subtitle="Доверие к подходу СинтезЛаб подтверждают отраслевое признание и реальные кейсы."
+  tone="white"
+  title="Отзывы и признания"
+  subtitle="Доверие к подходу подтверждают отраслевое признание и реальные кейсы. Прямые отзывы клиентов добавим после согласования формулировок."
 >
-  <div class="grid items-stretch gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-    <figure class="relative overflow-hidden rounded-2xl bg-ink p-8 text-white md:p-10">
-      <span aria-hidden="true" class="block font-serif text-6xl leading-none text-accent">“</span>
-      <blockquote class="-mt-2 text-xl font-semibold leading-8 md:text-2xl">
-        Премия НФПМК&nbsp;2024 — в номинации «Модель внедрения коучинга в&nbsp;организациях». Кейс реализован совместно с&nbsp;Т-Банком.
-      </blockquote>
-      <figcaption class="mt-6 text-sm text-periwinkle">
-        Независимое отраслевое признание методологии команды.
-      </figcaption>
-    </figure>
-
-    <div class="flex flex-col justify-center rounded-2xl border border-line bg-white p-8">
-      <p class="text-lg font-bold text-ink">Прямые отзывы клиентов</p>
-      <p class="mt-3 leading-7 text-muted">
-        Добавим поимённо после согласования формулировок с клиентами — с ролью, компанией и реальным текстом.
-        Т-Банк уже согласовал упоминание кейса под своим именем.
-      </p>
+  {/* Признание — реальное */}
+  <figure class="relative overflow-hidden rounded-2xl bg-ink p-8 text-white md:p-10">
+    <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      <div class="max-w-2xl">
+        <p class="inline-flex items-center gap-2 rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-accent">
+          {recognition.award}
+        </p>
+        <blockquote class="mt-4 text-xl font-bold leading-8 md:text-2xl">
+          {recognition.nomination}
+        </blockquote>
+        <figcaption class="mt-3 text-sm leading-6 text-periwinkle">
+          {recognition.note}
+        </figcaption>
+      </div>
+      <div class="shrink-0 text-center">
+        <div class="text-5xl font-extrabold leading-none text-accent md:text-6xl">2024</div>
+        <div class="mt-2 text-xs uppercase tracking-widest text-periwinkle">НФПМК</div>
+      </div>
     </div>
+  </figure>
+
+  {/* Отзывы — аккуратные заглушки до согласования */}
+  <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {testimonials.map((t) => (
+      <figure class="flex h-full flex-col rounded-2xl border border-line bg-surface p-6">
+        <div class="flex items-center gap-3">
+          <span
+            aria-hidden="true"
+            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-lg font-bold text-periwinkle ring-1 ring-line"
+          >
+            “
+          </span>
+          <figcaption class="text-sm font-semibold leading-tight text-ink">{t.role}</figcaption>
+        </div>
+        <blockquote class="mt-4 flex-1 text-sm leading-6 text-muted">{t.quote}</blockquote>
+        {t.placeholder && (
+          <span class="mt-4 inline-flex w-max items-center rounded-full bg-white px-2.5 py-1 text-[11px] font-medium text-muted ring-1 ring-line">
+            Отзыв на согласовании
+          </span>
+        )}
+      </figure>
+    ))}
   </div>
 </Section>

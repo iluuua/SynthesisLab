@@ -1,0 +1,45 @@
+---
+// Подробность кейса — общий блок для desktop-панели и mobile-аккордеона.
+import Icon from './ui/Icon.astro';
+
+interface Props {
+  item: any;
+  headingId?: string;
+}
+const { item, headingId } = Astro.props;
+---
+
+<div class="grid gap-6 sm:grid-cols-2">
+  <div>
+    <p class="text-xs font-semibold uppercase tracking-widest text-accent">Ситуация</p>
+    <p class="mt-2 text-sm leading-6 text-ink">{item.situation}</p>
+    <p class="mt-5 text-xs font-semibold uppercase tracking-widest text-accent">Запрос</p>
+    <p class="mt-2 text-sm leading-6 text-ink">{item.request}</p>
+  </div>
+  <div>
+    <p class="text-xs font-semibold uppercase tracking-widest text-accent">Что делали</p>
+    <ul class="mt-2 space-y-1.5">
+      {item.work.map((w: string) => (
+        <li class="flex gap-2 text-sm leading-6 text-ink">
+          <Icon name="arrow" class="mt-1 h-3.5 w-3.5 shrink-0 text-accent" />
+          <span>{w}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-5 text-xs font-semibold uppercase tracking-widest text-accent">Результат</p>
+    <ul class="mt-2 space-y-1.5">
+      {item.result.map((r: string) => (
+        <li class="flex gap-2 text-sm leading-6 text-ink">
+          <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+          <span>{r}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+{item.scale && (
+  <p class="mt-6 inline-flex flex-wrap items-center gap-x-2 rounded-full bg-surface px-4 py-2 text-xs font-medium text-muted">
+    <span class="font-semibold text-ink">Масштаб:</span> {item.scale}
+  </p>
+)}

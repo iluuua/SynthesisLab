@@ -1,0 +1,32 @@
+---
+import Section from './ui/Section.astro';
+import Icon from './ui/Icon.astro';
+import { segments } from '../data/segments';
+---
+
+<Section
+  id="komu"
+  tone="surface"
+  title="Кому помогаем"
+  subtitle="Под каждый запрос — свой вход. Выберите, что ближе, и посмотрите подходящие услуги."
+>
+  <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    {segments.map((s) => (
+      <a
+        href={`/services#${s.id}`}
+        class="group flex h-full flex-col rounded-2xl border border-line bg-white p-6 transition duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg focus-visible:-translate-y-1 active:translate-y-0"
+        aria-label={`${s.persona} — услуги: ${s.audience}`}
+      >
+        <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors duration-200 group-hover:bg-accent group-hover:text-white">
+          <Icon name={s.icon} class="h-6 w-6" />
+        </span>
+        <h3 class="mt-5 text-lg font-bold leading-snug text-ink">{s.persona}</h3>
+        <p class="mt-2 flex-1 text-sm leading-6 text-muted">{s.hint}</p>
+        <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
+          {s.audience}
+          <Icon name="arrow" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+        </span>
+      </a>
+    ))}
+  </div>
+</Section>

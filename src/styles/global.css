@@ -1,8 +1,91 @@
-@import '@fontsource/inter/400.css';
-@import '@fontsource/inter/500.css';
-@import '@fontsource/inter/600.css';
-@import '@fontsource/inter/700.css';
-@import '@fontsource/inter/800.css';
+/*
+ * Шрифт сайта. Брендовые материалы (деки «ЛОГО + КЕЙСЫ», «СинтезЛаб») набраны
+ * в Avenir / Avenir Next — это коммерческий шрифт без веб-лицензии и без файлов
+ * в репозитории. Берём ближайший по характеру свободный геометрический гротеск
+ * с полной кириллицей — Mulish (self-hosted, public/fonts/mulish).
+ * TODO(brand-font): если клиент предоставит лицензию и woff2 Avenir Next —
+ * заменить @font-face ниже на брендовые файлы, остальное менять не нужно.
+ */
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-cyrillic-400.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-cyrillic-500.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-cyrillic-600.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-cyrillic-700.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-cyrillic-800.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/mulish/mulish-latin-800.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 @tailwind base;
 @tailwind components;
@@ -22,9 +105,28 @@
     scroll-behavior: smooth;
     scroll-padding-top: 96px;
     text-rendering: optimizeLegibility;
+    background-color: var(--color-surface);
   }
 
-  body { @apply bg-surface text-ink antialiased; }
+  /* Sticky-footer: страница всегда занимает высоту экрана, футер прижат к низу.
+     Чинит белую/светлую полосу под футером на высоких экранах (privacy, 404). */
+  body {
+    @apply bg-surface text-ink antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  body > main {
+    flex: 1 0 auto;
+  }
+
+  :where(a, button, summary, input, select, textarea):focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 }
 
 @layer components {
@@ -69,17 +171,39 @@
     -webkit-mask-size: contain;
     mask-size: contain;
   }
+
+  /* Плавный аккордеон (FAQ, кейсы на mobile): анимируем grid-template-rows,
+     а не height — без скачков и без forced reflow. */
+  .accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .accordion-panel > .accordion-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+  .accordion-item[data-open='true'] .accordion-panel {
+    grid-template-rows: 1fr;
+  }
+  .accordion-item[data-open='true'] .acc-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Тяжёлые нижние секции рендерятся лениво — меньше работы у браузера при скролле. */
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   html.motion-ready .motion-reveal {
     opacity: 0;
-    transform: translate3d(0, 28px, 0);
+    transform: translate3d(0, 24px, 0);
     transition:
-      opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
-      transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--motion-delay, 0ms);
-    will-change: opacity, transform;
+      opacity 640ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 640ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   html.motion-ready .motion-reveal.is-visible {
@@ -106,5 +230,6 @@
     transform: none;
   }
 
+  .accordion-panel { transition: none; }
   .mobile-menu-panel { transition: none; }
 }

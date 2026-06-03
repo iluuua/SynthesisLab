@@ -1,23 +1,19 @@
 ---
-import Section from "./ui/Section.astro";
-import TeamCard from "./TeamCard.astro";
-import { team, projectTeamNote } from "../data/team";
+import Section from './ui/Section.astro';
+import TeamCard from './TeamCard.astro';
+import { team } from '../data/team';
 ---
 
-<Section id="komanda" title="Наша команда" center>
-  <div class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
-    <div class="self-start rounded-2xl bg-surface p-7 text-left">
-      <p class="text-sm font-semibold uppercase tracking-widest text-accent">
-        {projectTeamNote.title}
-      </p>
-      <p class="mt-4 text-muted">
-        {projectTeamNote.text}
-      </p>
-    </div>
-    <div class="grid gap-8 sm:grid-cols-2">
-      {team.map((m) => (
-        <TeamCard member={m} />
-      ))}
-    </div>
+<Section
+  id="komanda"
+  tone="white"
+  title="Наша команда"
+  subtitle="Executive- и командные коучи, фасилитаторы и организационные консультанты."
+  center
+>
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    {team.map((m) => (
+      <TeamCard member={m} />
+    ))}
   </div>
 </Section>

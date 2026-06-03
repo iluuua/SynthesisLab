@@ -1,15 +1,20 @@
 ---
-import { Image } from "astro:assets";
+import { Image } from 'astro:assets';
 
 interface Props {
   member: any;
 }
 
 const { member } = Astro.props;
+const initials = member.name
+  .split(' ')
+  .map((p: string) => p[0])
+  .slice(0, 2)
+  .join('');
 ---
 
-<article>
-  {member.photo && (
+<article class="flex h-full flex-col">
+  {member.photo ? (
     <Image
       src={member.photo}
       alt={member.name}
@@ -17,12 +22,27 @@ const { member } = Astro.props;
       height={600}
       class="aspect-[4/5] w-full rounded-2xl object-cover object-[50%_18%]"
     />
+  ) : (
+    <div
+      class="flex aspect-[4/5] w-full items-center justify-center rounded-2xl border border-line bg-gradient-to-br from-surface to-periwinkle/20"
+      aria-hidden="true"
+    >
+      <span class="text-4xl font-extrabold tracking-wide text-periwinkle">{initials}</span>
+    </div>
   )}
+
   <h3 class="mt-4 text-lg font-bold text-ink">{member.name}</h3>
   <p class="text-sm text-accent">{member.role}</p>
-  <ul class="mt-3 space-y-1.5">
-    {member.bio.map((b: string) => (
-      <li class="text-sm text-muted">{b}</li>
-    ))}
-  </ul>
+
+  {member.placeholder ? (
+    <p class="mt-3 text-sm leading-6 text-muted">
+      Профиль готовится — добавим фото и биографию после согласования.
+    </p>
+  ) : (
+    <ul class="mt-3 space-y-1.5">
+      {member.bio.map((b: string) => (
+        <li class="text-sm leading-6 text-muted">{b}</li>
+      ))}
+    </ul>
+  )}
 </article>
