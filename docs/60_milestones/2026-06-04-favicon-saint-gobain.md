@@ -11,7 +11,7 @@ Finished the previously started favicon and client-logo cleanup without restarti
 
 ## Changes
 
-- Kept the tab title unchanged: `СинтезЛаб — системное развитие бизнеса`.
+- Shortened the home-page browser tab title to `СинтезЛаб`.
 - Pointed the base layout favicon link at `/favicon.svg` and kept the square mark SVG in `public/favicon.svg`.
 - Generated `public/assets/clients/saint-gobain-clean.webp` from the existing Saint-Gobain WebP by removing pale baked-background pixels and trimming padding.
 - Updated the Saint-Gobain client data entry to use `/assets/clients/saint-gobain-clean.webp`.
@@ -21,7 +21,7 @@ Finished the previously started favicon and client-logo cleanup without restarti
 
 - `npm run build`: passed.
 - Dev server: `npm run dev -- --host 127.0.0.1`, opened `http://127.0.0.1:4321/`.
-- Browser checks: title and favicon href are correct; Saint-Gobain link has `target="_blank"`, `rel="noopener noreferrer"`, and an `aria-label`.
+- Browser checks: home title is `СинтезЛаб`, favicon href is correct; Saint-Gobain link has `target="_blank"`, `rel="noopener noreferrer"`, and an `aria-label`.
 - Desktop visual check: Saint-Gobain renders on the same white card surface as the other logos, using the clean asset.
 - Mobile 390px check: no horizontal overflow; Saint-Gobain renders from the clean asset.
 
