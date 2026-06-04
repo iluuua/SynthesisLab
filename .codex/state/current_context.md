@@ -1,11 +1,10 @@
 # Current context
 
-- Objective: подготовить SynthesisLab к staging-деплою на Amvera после UX/design pass.
-- Verified: branch `synthesislab-design-polish-assets`; project root `/Users/ilua/Documents/ilua-system/projects/SynthesisLab`; local AGENTS absent.
-- Verified QA: `npm run build` green; `npm run start` serves Node hybrid build; `/` and `/privacy/` return 200.
-- Verified API: `/api/lead` valid returns `{"ok":true}`; empty fields return `400 no_fields`; honeypot returns `{"ok":true}`.
-- Verified anchors: `formaty`, `diagnostika`, `keysy`, `komanda`, `lead` all present in built HTML.
-- Root cause/current hypothesis: no technical blocker; remaining risk is content/material confirmation, not Astro runtime.
-- Files touched: `package.json`, `amvera.yml`, `.env.example`, `README.md`, `.gitignore`, `.codex/state/current_context.md`, `docs/60_milestones/2026-06-03-amvera-staging-prep.md`.
-- Pending blockers: domain, Telegram bot token/chat_id, фото/био Александры и Анастасии, финальные отзывы, подтверждённые клиентские логотипы.
-- Exact next step: push branch and deploy on Amvera with `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `NODE_ENV=production` set when ready.
+- Objective: fix SynthesisLab diagnostic CTA first-click scroll and add client-side lead-form validation.
+- Verified: project root `/Users/ilua/Documents/ilua-system/projects/SynthesisLab`; branch `fix/diagnostic-cta-validation`; local AGENTS absent.
+- Verified: `npm run build` green; `npm run lint/check/test || true` only report missing scripts; Playwright checked desktop CTA first/repeat click and mobile 360/375/390/430.
+- Verified API/payload: UI sends `name/company/role/contact/message/website`; direct `/api/lead` valid POST returns `200 {"ok":true}` in local mock mode; no duplicate IDs.
+- Root cause found: `#lead` + `scrollIntoView` landed early when lazy `content-visibility` sections/reveal/image layout settled, so the first smooth scroll could stop around FAQ.
+- Files touched: CTA components, `Base.astro`, `LeadForm.astro`, `Button.astro`, `global.css`, `.codex/state/current_context.md`, milestone artifact.
+- Pending blockers: MiMo executor route reset connection twice; branch is not `main` because AGENTS forbids direct `main/master` edits; pre-existing unrelated dirty files remain outside task scope.
+- Exact next step: commit selected task files and push the feature branch for review/merge.

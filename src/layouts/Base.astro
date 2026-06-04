@@ -46,16 +46,73 @@ const { title, description = 'Системное развитие бизнеса
 
     <script is:inline>
       (() => {
-        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
         const root = document.documentElement;
         const btn = document.getElementById('m-btn');
         const menu = document.getElementById('m-menu');
+        const diagnosticFormSelector = '#diagnostic-form';
 
         const setMenu = (open) => {
           if (!btn || !menu) return;
           menu.classList.toggle('is-open', open);
           btn.setAttribute('aria-expanded', String(open));
         };
+
+        const isLocalDev = () =>
+          ['localhost', '127.0.0.1', '0.0.0.0'].includes(window.location.hostname);
+
+        const warnMissingDiagnosticForm = () => {
+          if (isLocalDev()) {
+            console.warn('Diagnostic form target #diagnostic-form was not found.');
+          }
+        };
+
+        const headerOffset = () => {
+          const header = document.querySelector('header');
+          return (header instanceof HTMLElement ? header.offsetHeight : 0) + 16;
+        };
+
+        const targetTop = (target) =>
+          Math.max(target.getBoundingClientRect().top + window.scrollY - headerOffset(), 0);
+
+        const scrollToTarget = (target, hash, ensureFinal = false) => {
+          const scroll = (behavior) => {
+            window.scrollTo({
+              top: targetTop(target),
+              behavior,
+            });
+          };
+
+          scroll(reducedMotion.matches ? 'auto' : 'smooth');
+
+          if (hash) history.replaceState(null, '', hash);
+
+          if (!ensureFinal) return;
+
+          const settle = () => {
+            const top = targetTop(target);
+            if (Math.abs(window.scrollY - top) > 3) {
+              window.scrollTo({ top, behavior: 'auto' });
+            }
+          };
+
+          window.setTimeout(settle, reducedMotion.matches ? 0 : 450);
+          window.setTimeout(settle, reducedMotion.matches ? 0 : 900);
+          window.setTimeout(settle, reducedMotion.matches ? 0 : 1400);
+        };
+
+        const scrollToDiagnosticForm = () => {
+          const target = document.querySelector(diagnosticFormSelector);
+          if (!(target instanceof HTMLElement)) {
+            warnMissingDiagnosticForm();
+            return false;
+          }
+
+          scrollToTarget(target, diagnosticFormSelector, true);
+          return true;
+        };
+
+        const normalizePath = (path) => path.replace(/\/index\.html$/, '/');
 
         btn?.addEventListener('click', () => setMenu(!menu?.classList.contains('is-open')));
 
@@ -68,15 +125,21 @@ const { title, description = 'Системное развитие бизнеса
           const anchor = target.closest('a[href^="#"], a[href*="/#"]');
           if (anchor instanceof HTMLAnchorElement && anchor.hash.length > 1) {
             const samePage =
-              !anchor.pathname || anchor.pathname === window.location.pathname;
+              anchor.origin === window.location.origin &&
+              normalizePath(anchor.pathname) === normalizePath(window.location.pathname);
             if (samePage) {
               const id = decodeURIComponent(anchor.hash.slice(1));
-              const section = document.getElementById(id);
-              if (section) {
+              if (id === diagnosticFormSelector.slice(1)) {
                 event.preventDefault();
                 setMenu(false);
-                section.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-                history.replaceState(null, '', anchor.hash);
+                scrollToDiagnosticForm();
+              } else {
+                const section = document.getElementById(id);
+                if (section) {
+                  event.preventDefault();
+                  setMenu(false);
+                  scrollToTarget(section, anchor.hash);
+                }
               }
             }
           }
@@ -90,13 +153,21 @@ const { title, description = 'Системное развитие бизнеса
           if (event.key === 'Escape') setMenu(false);
         });
 
+        if (window.location.hash === diagnosticFormSelector) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              scrollToDiagnosticForm();
+            });
+          });
+        }
+
         // Reveal только на уровне секций (≈12 узлов), один общий IntersectionObserver,
         // unobserve после появления. Карточки/логотипы/grid-элементы НЕ наблюдаются.
         const nodes = Array.from(
           document.querySelectorAll('main > section, [data-reveal]')
         );
 
-        if (reduced || !('IntersectionObserver' in window)) {
+        if (reducedMotion.matches || !('IntersectionObserver' in window)) {
           root.classList.add('motion-reduced');
           nodes.forEach((node) => node.classList.add('is-visible'));
           return;

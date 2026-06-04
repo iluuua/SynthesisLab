@@ -172,6 +172,16 @@
     mask-size: contain;
   }
 
+  .form-control[aria-invalid='true'] {
+    border-color: #B45A4C;
+    background-color: #FFF8F6;
+  }
+
+  .form-error {
+    color: #A7473D;
+    overflow-wrap: anywhere;
+  }
+
   /* Плавный аккордеон (FAQ, кейсы на mobile): анимируем grid-template-rows,
      а не height — без скачков и без forced reflow. */
   .accordion-panel {
