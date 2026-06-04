@@ -98,7 +98,7 @@ export const clients: Client[] = [
   { name: 'ВЭБ.РФ', logo: '/assets/clients/veb-rf.webp', url: 'https://вэб.рф' },
   { name: 'ATI.SU', logo: '/assets/clients/ati-su.webp', url: 'https://ati.su' },
   { name: 'Faberlic', logo: '/assets/clients/faberlic.webp', url: 'https://faberlic.com' },
-  { name: 'Saint-Gobain', logo: '/assets/clients/saint-gobain.webp', url: 'https://www.saint-gobain.com' },
+  { name: 'Saint-Gobain', logo: '/assets/clients/saint-gobain-clean.webp', url: 'https://www.saint-gobain.com' },
   // TODO(client-url): «DS Consulting» — название неоднозначно, точный сайт уточнить у клиента.
   { name: 'DS Consulting', logo: '/assets/clients/ds-consulting.webp', url: '' },
 ];
