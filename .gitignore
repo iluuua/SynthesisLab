@@ -10,6 +10,7 @@ node_modules/
 # test/browser artifacts
 test-results/
 playwright-report/
+.codex/artifacts/
 
 # local research/audit artifacts
 research/

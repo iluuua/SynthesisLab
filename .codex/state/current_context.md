@@ -1,10 +1,10 @@
 # Current context
 
-- Objective: fix SynthesisLab diagnostic CTA first-click scroll and add client-side lead-form validation.
-- Verified: project root `/Users/ilua/Documents/ilua-system/projects/SynthesisLab`; branch `fix/diagnostic-cta-validation`; local AGENTS absent.
-- Verified: `npm run build` green; `npm run lint/check/test || true` only report missing scripts; Playwright checked desktop CTA first/repeat click and mobile 360/375/390/430.
-- Verified API/payload: UI sends `name/company/role/contact/message/website`; direct `/api/lead` valid POST returns `200 {"ok":true}` in local mock mode; no duplicate IDs.
-- Root cause found: `#lead` + `scrollIntoView` landed early when lazy `content-visibility` sections/reveal/image layout settled, so the first smooth scroll could stop around FAQ.
-- Files touched: CTA components, `Base.astro`, `LeadForm.astro`, `Button.astro`, `global.css`, `.codex/state/current_context.md`, milestone artifact.
-- Pending blockers: MiMo executor route reset connection twice; branch is not `main` because AGENTS forbids direct `main/master` edits; pre-existing unrelated dirty files remain outside task scope.
-- Exact next step: commit selected task files and push the feature branch for review/merge.
+- Objective: finish favicon/title/Saint-Gobain logo cleanup for SynthesisLab without restarting the site audit.
+- Verified: project root `/Users/ilua/Documents/ilua-system/projects/SynthesisLab`; branch `fix/diagnostic-cta-validation`; no local AGENTS; `docs/00_index/*` absent.
+- Root cause found: favicon had been moved from wide brand logo to square mark; Saint-Gobain source WebP had opaque baked white background/padding despite alpha support.
+- Files changed: `public/favicon.svg`, `src/layouts/Base.astro`, `public/assets/clients/saint-gobain-clean.webp`, `src/data/content.ts`, `.gitignore`, this context, milestone artifact.
+- Verified: title remains `СинтезЛаб — системное развитие бизнеса`; favicon link is `/favicon.svg`; Saint-Gobain uses clean transparent WebP and required external-link attrs.
+- Verified: `npm run build` green; dev server/browser checked desktop clients block and mobile 390px with no horizontal overflow.
+- Pending blockers: `.codex/test-command` absent; in-app mobile screenshot capture timed out, but mobile DOM/layout checks passed; branch is not `main` due AGENTS main/master guard.
+- Exact next step: stage only task-related files, commit, push the current feature branch for review/merge.
