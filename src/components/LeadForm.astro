@@ -1,250 +1,29 @@
 ---
 import Section from './ui/Section.astro';
 import Button from './ui/Button.astro';
+
+const mailHref = 'mailto:e.derevyashkina@mail.ru?subject=Diagnostic%20request';
+const telegramHref = 'https://t.me/psycoach_katerina';
 ---
 
-<Section tone="white" center title="Получить диагностику" subtitle="Оставьте контакты — свяжемся и согласуем удобное время для бесплатной диагностики команды.">
-  <form id="diagnostic-form" class="mx-auto grid max-w-xl gap-4 text-left" novalidate>
-    <label class="grid gap-1.5 text-sm font-medium text-ink">
-      Имя
-      <input
-        id="lead-name"
-        type="text"
-        name="name"
-        autocomplete="name"
-        aria-describedby="name-error"
-        aria-invalid="false"
-        class="form-control rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
-      />
-      <span id="name-error" class="form-error hidden text-sm leading-5"></span>
-    </label>
+<Section tone="white" center title="Получить диагностику" subtitle="Напишите удобным способом — согласуем время бесплатной диагностики командной системы.">
+  <div class="mx-auto max-w-xl rounded-3xl border border-line bg-surface p-6 text-left shadow-soft md:p-8">
+    <div class="space-y-3 text-muted">
+      <p>
+        За 50 минут вы получите фокусы на ближайший период, поймете, где теряется эффективность, и определитесь, куда двигаться дальше.
+      </p>
+      <p>
+        Для демонстрационной версии заявки отправляются напрямую через Telegram или почту.
+      </p>
+    </div>
 
-    <label class="grid gap-1.5 text-sm font-medium text-ink">
-      Компания
-      <input
-        id="lead-company"
-        type="text"
-        name="company"
-        autocomplete="organization"
-        class="form-control rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
-      />
-    </label>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <Button href={telegramHref} variant="primary" class="w-full sm:w-auto">Написать в Telegram</Button>
+      <Button href={mailHref} variant="ghost" class="w-full sm:w-auto">Написать на почту</Button>
+    </div>
 
-    <label class="grid gap-1.5 text-sm font-medium text-ink">
-      Роль
-      <select
-        id="lead-role"
-        name="role"
-        aria-describedby="role-error"
-        aria-invalid="false"
-        class="form-control rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
-      >
-        <option value="" selected>Выберите…</option>
-        <option value="Собственник">Собственник</option>
-        <option value="HR">HR</option>
-        <option value="Руководитель">Руководитель</option>
-        <option value="Другое">Другое</option>
-      </select>
-      <span id="role-error" class="form-error hidden text-sm leading-5"></span>
-    </label>
-
-    <label class="grid gap-1.5 text-sm font-medium text-ink">
-      Телефон или Telegram
-      <input
-        id="lead-contact"
-        type="text"
-        name="contact"
-        autocomplete="tel"
-        inputmode="text"
-        aria-describedby="contact-error"
-        aria-invalid="false"
-        class="form-control rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
-      />
-      <span id="contact-error" class="form-error hidden text-sm leading-5"></span>
-    </label>
-
-    <label class="grid gap-1.5 text-sm font-medium text-ink">
-      Коротко о запросе
-      <textarea
-        id="lead-message"
-        name="message"
-        rows="4"
-        aria-describedby="message-error"
-        aria-invalid="false"
-        class="form-control rounded-xl border border-line bg-surface px-4 py-3 outline-none transition-colors focus:border-accent"
-      ></textarea>
-      <span id="message-error" class="form-error hidden text-sm leading-5"></span>
-    </label>
-
-    <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-
-    <p class="text-xs text-muted">
-      Нажимая кнопку, вы соглашаетесь с <a href="/privacy" class="font-medium text-ink underline underline-offset-2 hover:text-accent">политикой обработки персональных данных</a>.
+    <p class="mt-4 text-xs text-muted">
+      Нажимая кнопку, вы переходите во внешний сервис для связи с командой.
     </p>
-
-    <Button variant="primary" type="submit">Отправить</Button>
-
-    <p id="lead-ok" class="hidden font-medium text-green-700" role="status">Спасибо! Мы свяжемся с вами.</p>
-    <p id="lead-err" class="hidden font-medium text-red-600" role="alert">Что-то пошло не так. Напишите нам в Telegram.</p>
-  </form>
+  </div>
 </Section>
-
-<script>
-  const f = document.getElementById('diagnostic-form') as HTMLFormElement | null;
-
-  if (f) {
-    type FieldName = 'name' | 'role' | 'contact' | 'message';
-
-    const fieldNames: FieldName[] = ['name', 'role', 'contact', 'message'];
-    const fields = {
-      name: f.elements.namedItem('name') as HTMLInputElement,
-      role: f.elements.namedItem('role') as HTMLSelectElement,
-      contact: f.elements.namedItem('contact') as HTMLInputElement,
-      message: f.elements.namedItem('message') as HTMLTextAreaElement,
-    };
-    const ok = document.getElementById('lead-ok');
-    const err = document.getElementById('lead-err');
-    const submitButton = f.querySelector<HTMLButtonElement>('button[type="submit"]');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let hasSubmitted = false;
-    let isSubmitting = false;
-
-    const headerOffset = () => {
-      const header = document.querySelector('header');
-      return (header instanceof HTMLElement ? header.offsetHeight : 0) + 16;
-    };
-
-    const hideStatus = () => {
-      ok?.classList.add('hidden');
-      err?.classList.add('hidden');
-    };
-
-    const setError = (name: FieldName, message: string) => {
-      const field = fields[name];
-      const error = document.getElementById(`${name}-error`);
-
-      field.setAttribute('aria-invalid', message ? 'true' : 'false');
-      if (!error) return;
-
-      error.textContent = message;
-      error.classList.toggle('hidden', !message);
-    };
-
-    const isPhone = (value: string) => {
-      const digits = value.replace(/[\s().-]/g, '').replace(/^\+/, '');
-      return /^\d{10,15}$/.test(digits);
-    };
-
-    const isTelegram = (value: string) => /^@[A-Za-z0-9_]{5,32}$/.test(value);
-
-    const validateField = (name: FieldName) => {
-      const value = fields[name].value.trim();
-      let message = '';
-
-      if (name === 'name' && value.length < 2) {
-        message = 'Укажите имя, чтобы мы понимали, как к вам обращаться.';
-      }
-
-      if (name === 'role' && !value) {
-        message = 'Выберите формат, который вам ближе.';
-      }
-
-      if (name === 'contact') {
-        if (!value) {
-          message = 'Укажите телефон или Telegram, чтобы мы могли связаться.';
-        } else if (!isPhone(value) && !isTelegram(value)) {
-          message = 'Введите корректный номер телефона или Telegram в формате @username.';
-        }
-      }
-
-      if (name === 'message' && value.length < 10) {
-        message = 'Коротко опишите запрос. Достаточно 1–2 предложений.';
-      }
-
-      setError(name, message);
-      return !message;
-    };
-
-    const validateForm = () => fieldNames.filter((name) => !validateField(name));
-
-    const focusInvalidField = (field: HTMLElement) => {
-      const offset = headerOffset();
-      const rect = field.getBoundingClientRect();
-      const needsScroll = rect.top < offset || rect.bottom > window.innerHeight;
-
-      field.focus({ preventScroll: true });
-
-      if (needsScroll) {
-        window.scrollTo({
-          top: Math.max(rect.top + window.scrollY - offset, 0),
-          behavior: reducedMotion.matches ? 'auto' : 'smooth',
-        });
-      }
-    };
-
-    const clearErrors = () => {
-      fieldNames.forEach((name) => setError(name, ''));
-    };
-
-    fieldNames.forEach((name) => {
-      const field = fields[name];
-      const revalidate = () => {
-        if (!hasSubmitted) return;
-        validateField(name);
-      };
-
-      field.addEventListener('input', revalidate);
-      field.addEventListener('blur', revalidate);
-      field.addEventListener('change', revalidate);
-    });
-
-    f.addEventListener('submit', async (e: Event) => {
-      e.preventDefault();
-
-      if (isSubmitting) return;
-
-      hasSubmitted = true;
-      hideStatus();
-
-      const invalidFields = validateForm();
-      if (invalidFields.length > 0) {
-        focusInvalidField(fields[invalidFields[0]]);
-        return;
-      }
-
-      const d = Object.fromEntries(new FormData(f));
-      const initialSubmitText = submitButton?.textContent ?? 'Отправить';
-
-      isSubmitting = true;
-      if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.textContent = 'Отправляем…';
-      }
-
-      try {
-        const r = await fetch('/api/lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(d),
-        });
-        const j = await r.json();
-        if (j.ok) {
-          ok?.classList.remove('hidden');
-          f.reset();
-          hasSubmitted = false;
-          clearErrors();
-        } else {
-          err?.classList.remove('hidden');
-        }
-      } catch {
-        err?.classList.remove('hidden');
-      } finally {
-        isSubmitting = false;
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.textContent = initialSubmitText;
-        }
-      }
-    });
-  }
-</script>
