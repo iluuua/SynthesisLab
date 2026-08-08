@@ -6,6 +6,7 @@ import Container from '../components/ui/Container.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
 import { segments } from '../data/segments';
+import { withBase } from '../lib/base';
 ---
 
 <Base
@@ -17,7 +18,7 @@ import { segments } from '../data/segments';
     <!-- Интро -->
     <section class="bg-white pb-10 pt-14 md:pt-16">
       <Container>
-        <a href="/" class="text-sm font-semibold text-accent hover:underline">← На главную</a>
+        <a href={withBase('/')} class="text-sm font-semibold text-accent hover:underline">← На главную</a>
         <h1 class="mt-4 max-w-3xl text-3xl font-extrabold tracking-tight text-ink md:text-4xl lg:text-5xl">
           Кому и чем мы помогаем
         </h1>
@@ -70,8 +71,8 @@ import { segments } from '../data/segments';
             </ul>
 
             <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-6">
-              <Button variant="primary" href="/#diagnostic-form" class="!px-4 !py-2 text-sm">Получить диагностику</Button>
-              <a href="/#formaty" class="text-sm font-semibold text-accent transition hover:underline">Основные форматы работы →</a>
+              <Button variant="primary" href={withBase('/#diagnostic-form')} class="!px-4 !py-2 text-sm">Получить диагностику</Button>
+              <a href={withBase('/#formaty')} class="text-sm font-semibold text-accent transition hover:underline">Основные форматы работы →</a>
             </div>
           </section>
         </Container>

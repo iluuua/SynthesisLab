@@ -1,6 +1,7 @@
 ---
 import Section from './ui/Section.astro';
 import { clients, metrics } from '../data/content';
+import { withBase } from '../lib/base';
 ---
 
 <Section
@@ -15,7 +16,7 @@ import { clients, metrics } from '../data/content';
       // фоном (Saint-Gobain, Альфа-Банк) выглядят как часть одного ряда.
       const inner = (
         <img
-          src={client.logo}
+          src={withBase(client.logo)}
           alt={`Логотип ${client.name}`}
           width="160"
           height="48"
