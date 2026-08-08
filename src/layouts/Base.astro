@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { title, description = 'Системное развитие бизнеса — СинтезЛаб' } = Astro.props;
+import { withBase } from '../lib/base';
 ---
 
 <!doctype html>
@@ -15,21 +16,21 @@ const { title, description = 'Системное развитие бизнеса
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="mask-icon" href="/favicon.svg" color="#3D5A7F" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="mask-icon" href={withBase('/favicon.svg')} color="#3D5A7F" />
 
     {/* Preload только двух основных woff2: тело (400) и заголовки (800).
         Остальные веса и латиница грузятся по мере необходимости (font-display: swap). */}
     <link
       rel="preload"
-      href="/fonts/mulish/mulish-cyrillic-400.woff2"
+      href={withBase('/fonts/mulish/mulish-cyrillic-400.woff2')}
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/mulish/mulish-cyrillic-800.woff2"
+      href={withBase('/fonts/mulish/mulish-cyrillic-800.woff2')}
       as="font"
       type="font/woff2"
       crossorigin

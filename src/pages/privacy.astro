@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Container from '../components/ui/Container.astro';
 import { contacts } from '../data/content';
+import { withBase } from '../lib/base';
 ---
 
 <Base title="Политика обработки персональных данных — СинтезЛаб" description="Как СинтезЛаб обрабатывает персональные данные, оставленные через форму на сайте.">
@@ -11,7 +12,7 @@ import { contacts } from '../data/content';
   <main class="bg-white py-16 md:py-24">
     <Container>
       <div class="mx-auto max-w-3xl">
-        <a href="/" class="text-sm font-semibold text-accent hover:underline">← На главную</a>
+        <a href={withBase('/')} class="text-sm font-semibold text-accent hover:underline">← На главную</a>
         <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
           Политика обработки персональных данных
         </h1>
