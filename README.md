@@ -6,14 +6,15 @@
 
 ## Текущий статус
 
-- **Production demo:** `https://synthesis-lab-seven.vercel.app`
+- **Production demo (основная ссылка для показа покупателям):** `https://iluuua.github.io/SynthesisLab/`
+- **Production demo (запасная):** `https://synthesis-lab-seven.vercel.app`
 - **Основная ветка:** `main`
 - **Фреймворк:** Astro 4 + Tailwind CSS
 - **Режим сборки:** Astro `hybrid` + `@astrojs/node`
 - **Vercel demo output:** `dist/client`
 - **Форма заявки в демо:** без backend-submit, через прямые ссылки на Telegram/почту
 
-Важно: проект исторически готовился под Amvera с Node runtime и `/api/lead`, но для быстрой бесплатной демонстрации на Vercel сейчас используется статическая клиентская часть из `dist/client`.
+Важно: проект исторически готовился под Amvera с Node runtime и `/api/lead`, но для быстрой бесплатной демонстрации на Vercel и GitHub Pages сейчас используется статическая клиентская часть из `dist/client`. На GitHub Pages сайт живёт по под-пути `/SynthesisLab/`.
 
 ## Что внутри сайта
 
@@ -99,6 +100,29 @@ npm run start
 ```
 
 ## Deploy
+
+### GitHub Pages (постоянная демо-ссылка)
+
+Постоянная демо-ссылка для показа покупателям: `https://iluuua.github.io/SynthesisLab/`.
+
+Деплой автоматический — при пуше в `main` срабатывает workflow `.github/workflows/pages.yml`.
+
+Env-переменные сборки:
+
+```bash
+PAGES_BASE=/SynthesisLab
+PAGES_SITE=https://iluuua.github.io
+```
+
+Публикуется каталог `dist/client`. Без этих переменных сборка не меняется — Vercel и Amvera не затронуты.
+
+Все корневые пути в разметке должны быть обёрнуты в `withBase()` из `src/lib/base.ts` (использует `import.meta.env.BASE_URL`). Если добавляешь новую ссылку или ассет с корневым путём — оборачивай в `withBase()`, иначе на Pages он сломается.
+
+Локальная проверка сборки под Pages:
+
+```bash
+PAGES_BASE=/SynthesisLab PAGES_SITE=https://iluuua.github.io npm run build
+```
 
 ### Vercel demo
 
