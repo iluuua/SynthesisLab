@@ -2,6 +2,7 @@
 import Section from './ui/Section.astro';
 import Icon from './ui/Icon.astro';
 import { segments } from '../data/segments';
+import { withBase } from '../lib/base';
 ---
 
 <Section
@@ -13,7 +14,7 @@ import { segments } from '../data/segments';
   <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
     {segments.map((s) => (
       <a
-        href={`/services#${s.id}`}
+        href={withBase(`/services#${s.id}`)}
         class="group flex h-full flex-col rounded-2xl border border-line bg-white p-6 transition duration-200 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg focus-visible:-translate-y-1 active:translate-y-0"
         aria-label={`${s.persona} — услуги: ${s.audience}`}
       >

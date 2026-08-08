@@ -3,14 +3,15 @@ import Container from './ui/Container.astro';
 import Button from './ui/Button.astro';
 import Icon from './ui/Icon.astro';
 import { site, contacts, nav } from '../data/content';
+import { withBase } from '../lib/base';
 ---
 
 <header class="sticky top-0 z-50 pt-3">
   <Container>
     <div class="glass-nav flex h-16 items-center justify-between gap-4 rounded-2xl pl-4 pr-3 md:pl-5">
-      <a href="/" aria-label="На главную" class="shrink-0">
+      <a href={withBase('/')} aria-label="На главную" class="shrink-0">
         <img
-          src="/assets/brand/synthesislab-logo.svg"
+          src={withBase('/assets/brand/synthesislab-logo.svg')}
           alt="СинтезЛаб"
           width="279"
           height="169"
@@ -23,7 +24,7 @@ import { site, contacts, nav } from '../data/content';
       <nav class="hidden items-center gap-7 lg:flex" aria-label="Основная навигация">
         {nav.map((item) => (
           <a
-            href={item.href}
+            href={withBase(item.href)}
             class="text-sm font-medium text-ink/90 transition hover:text-accent"
           >
             {item.label}
@@ -45,7 +46,7 @@ import { site, contacts, nav } from '../data/content';
         </a>
 
         <Button
-          href="/#diagnostic-form"
+          href={withBase('/#diagnostic-form')}
           variant="primary"
           class="hidden h-10 !px-4 !py-0 text-sm md:inline-flex"
         >
@@ -73,7 +74,7 @@ import { site, contacts, nav } from '../data/content';
       <nav class="flex flex-col gap-1">
         {nav.map((item) => (
           <a
-            href={item.href}
+            href={withBase(item.href)}
             class="rounded-lg px-2 py-2 text-sm font-medium text-ink transition hover:bg-white/60 hover:text-accent"
           >
             {item.label}
